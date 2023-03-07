@@ -21,7 +21,8 @@ st.set_page_config(
 #MSFT,Feb 1 2000,36.35
 def get_data():
     #source = data.stocks()
-    source = pd.read_csv("c:/Download/stocks.csv", delimiter=',')
+    #source = pd.read_csv("c:/Download/stocks.csv", delimiter=',')
+    source = pd.read_csv("stocks.csv", delimiter=',')
     source = source[source.date.gt("2004-01-01")]
     return source
 
@@ -129,7 +130,8 @@ import streamlit as st
 alt.themes.enable("streamlit")
 @st.experimental_memo
 def get_data():
-    source = pd.read_csv("c:/Download/stocks.csv", delimiter=',)
+    source = pd.read_csv("stocks.csv", delimiter=',)
+
     source = source[source.date.gt("2004-01-01")]
     return source
 source = get_data()
