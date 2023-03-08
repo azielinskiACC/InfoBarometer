@@ -32,7 +32,10 @@ df = df.sort_values(by=['dates', 'count']).reset_index(drop=True)
 group = df.groupby('Sentiment')
 
 #create your figure and get the figure object returned
-fig = plt.figure() 
+fig = px.scatter(df, x=df['dates'], y=df['count']
+                          , trendline="lowess")
+#histogram(df, x='desc', hover_data=['desc'], y='stats_diggCount', height=300) 
+#fig = plt.figure() 
 # create a blank canvas
 #fig = go.Figure()
 
