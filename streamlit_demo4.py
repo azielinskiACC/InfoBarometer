@@ -6,10 +6,8 @@ https://github.com/streamlit/example-app-zero-shot-text-classifier
 @author: zia
 """
 
-import altair as alt
 import pandas as pd
 import streamlit as st
-import plotly
 import plotly.graph_objects as go
 import plotly_express as px
 
@@ -33,8 +31,13 @@ df = df.sort_values(by=['dates', 'count']).reset_index(drop=True)
 # group the dataframe
 group = df.groupby('Sentiment')
 
+#create your figure and get the figure object returned
+fig = plt.figure() 
 # create a blank canvas
-fig = go.Figure()
+#fig = go.Figure()
+
+
+
 
 # each group iteration returns a tuple
 # (group name, dataframe)
@@ -71,6 +74,7 @@ for group_name, df in group:
         , title=#'Monthly Time Series of News Articles from automobilwoche for innovation-related keywords with Regression'
         'Monthly Time Series of News Articles from automobil-industrie-Vogel for innovation-related keywords with Regression'
     )
+
 
 
 st.pyplot(fig)
