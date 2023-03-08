@@ -1,4 +1,4 @@
-import pandas
-import streamlit
 import plotly.graph_objects
 import plotly_express
+pandas==1.0.5
+streamlit==0.62.0
