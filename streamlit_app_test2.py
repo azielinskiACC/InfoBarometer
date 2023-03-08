@@ -9,7 +9,7 @@ import streamlit as st
 #from matplotlib import pyplot as plt
 from textblob import TextBlob
 from nltk.tokenize import sent_tokenize
-from gensim.summarization.summarizer import summarize 
+#from gensim.summarization.summarizer import summarize 
 #from gensim.summarization import keywords
 #import spacy
 #from spacy import displacy
@@ -85,7 +85,7 @@ elif option == 'Entity Extraction':
     st.write("GPE Entities: " + str(entGPE))
 
 #Text Summarization
-else:
-    summWords = summarize(text)
-    st.subheader("Summary")
-    st.write(summWords)
+#else:
+#    summWords = summarize(text)
+#    st.subheader("Summary")
+#    st.write(summWords)
