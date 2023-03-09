@@ -1,5 +1,4 @@
 plotly
 altair
 streamlit
-pandas
-ploty.express
+pandas==1.3.5
