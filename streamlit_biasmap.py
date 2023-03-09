@@ -71,13 +71,18 @@ st.write("---")
  #   st.error("Your input sentence must contain a German news article.")
  #   st.stop()
 
-if text_input:
+#if text_input:
+ #   st.caption("Output:")
+if input_values :
     st.caption("Output:")
 
-    st.write(f"""Input: _"{text_input}"_:""")
+   # st.write(f"""Input: _"{text_input}"_:""")
+   # st.write(f"""Input: _"{text_input}"_:""")
+    
     with st.spinner("Computing probabilities..."):
         reviews = []
-        reviews.append(text_input)
+        #reviews.append(text_input)
+        reviews.append(input_values)
 
         results = predict(reviews)
         probas_pos = map(result_to_positive_class_probability, results)
