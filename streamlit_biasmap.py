@@ -40,11 +40,11 @@ def predict(reviews):
 def result_to_positive_class_probability(result):
         return result["score"] if result["label"] == "POSITIVE" else 1 - result["score"]
 
-def result_to_negative_class_probability(result):
-        return result["score"] if result["label"] == "NEGATIVE" else 1 - result["score"]
+#def result_to_negative_class_probability(result):
+  #     return result["score"] if result["label"] == "NEGATIVE" else 1 - result["score"]
 
-def result_to_neutral_class_probability(result):
-        return result["score"] if result["label"] == "NEUTRAL" else 1 - result["score"]
+#def result_to_neutral_class_probability(result):
+  #      return result["score"] if result["label"] == "NEUTRAL" else 1 - result["score"]
 
 
 classifier = get_classifier()
@@ -86,8 +86,8 @@ if input_values :
 
         results = predict(reviews)
         probas_pos = map(result_to_positive_class_probability, results)
-        probas_neg = map(result_to_negative_class_probability, results)
-        probas_neu = map(result_to_neutral_class_probability, results)
+ #       probas_neg = map(result_to_negative_class_probability, results)
+  #      probas_neu = map(result_to_neutral_class_probability, results)
 
         probas_df = pd.DataFrame(
             {"Positive class probability": probas_pos}
