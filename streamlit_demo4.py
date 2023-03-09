@@ -36,20 +36,22 @@ df = df.sort_values(by=['dates', 'count']).reset_index(drop=True)
 # group the dataframe
 group = df.groupby('Sentiment')
 
+st.header("Trend over time")
 
-with interactive:
-    fig = go.Figure
-    for group_name, df in group:
-        fig.add_trace( go.Scatter(
-              x=df['dates']
-            , y=df['count']
-            , fill='tozeroy'
-            , name=group_name
-        ))
-
-#    fig = px.scatter(df, x=df['dates'], y=df['count'], trendline="lowess")
-    fig.show()
-        
+# =============================================================================
+# with interactive:
+#     fig = go.Figure
+#     for group_name, df in group:
+#         fig.add_trace( go.Scatter(
+#               x=df['dates']
+#             , y=df['count']
+#             , fill='tozeroy'
+#             , name=group_name
+#         ))
+# 
+# =============================================================================
+fig = px.scatter(df, x=df['dates'], y=df['count'], trendline="lowess")
+st.plotly_chart(fig)
 
 #st.pyplot(fig)
 
