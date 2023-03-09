@@ -1,9 +1,4 @@
+tensorflow
+transformers
 plotly
-altair
-streamlit
-pandas
-streamlit
-numpy
-wordcloud
-matplotlib
-nltk
+kaleido
