@@ -40,7 +40,7 @@ st.write("""Discover the Sentiment""")
 # )
 # =============================================================================
 text_input = st.text_area("Type in a German news article",max_chars = 500)
-st.write('About you:', text_input)
+#st.write('Repeat:', text_input)
 
 
 
@@ -53,13 +53,7 @@ if len(text_input) > 1 :
     with st.spinner("Computing probabilities..."):
         reviews = []
         reviews.append(text_input)
-
         results = predict(reviews)
-        probas_pos = map(result_to_positive_class_probability, results)
 
-        probas_df = pd.DataFrame(
-            {"Positive class probability": probas_pos}
-        )
-
-        st.write("Data (sorted by ascending 'positive' probability):")
-        st.dataframe(probas_df.sort_values(by="Positive class probability", ascending=True), height=350,)
+        st.write("Probability:", results)
+        #st.dataframe(probas_df.sort_values(by="Positive class probability", ascending=True), height=350,)
