@@ -25,8 +25,8 @@ st.set_page_config(layout="centered", page_icon="🗺️", page_title="Sentiment
 
 @st.experimental_singleton
 def get_classifier():
-    return pipeline("sentiment-analysis")
-#    return pipeline("sentiment-analysis", model='oliverguhr/german-sentiment-bert', tokenizer='oliverguhr/german-sentiment-bert', top_k=3)
+#    return pipeline("sentiment-analysis")
+    return pipeline("sentiment-analysis", model='oliverguhr/german-sentiment-bert', tokenizer='oliverguhr/german-sentiment-bert', top_k=3)
 
 
 
@@ -50,14 +50,14 @@ classifier = get_classifier()
 st.write("""Discover the Sentiment""")
 
 text_input = st.text_input(
-    label="Type in a sentence or news article. "
+    label="Type in a German news article. "
 )
 
 st.write("---")
 
-if "*" not in text_input:
-    st.error("Your input sentence must contain a German news article.")
-    st.stop()
+##if "*" not in text_input:
+ #   st.error("Your input sentence must contain a German news article.")
+ #   st.stop()
 
 if text_input:
     st.caption("Output:")
