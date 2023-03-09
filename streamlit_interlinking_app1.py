@@ -11,12 +11,12 @@ import streamlit as st
 st.set_page_config(page_title="BERT Semantic Interlinking App", page_icon="🔗",
                    layout="wide")  # needs to be the first thing after the streamlit import
 
-from io import BytesIO
+#from io import BytesIO
 from streamlit_echarts import st_echarts
-from urllib.parse import urlparse
+#from urllib.parse import urlparse
 import chardet
 import pandas as pd
-from sentence_transformers import SentenceTransformer, util
+#from sentence_transformers import SentenceTransformer, util
 
 finish = False
 
@@ -40,9 +40,9 @@ model_radio_button = st.sidebar.radio(
 )
 
 @st.cache(allow_output_mutation=True)
-def get_model():
-    model = SentenceTransformer(model_radio_button)
-    return model
+# def get_model():
+#     model = SentenceTransformer(model_radio_button)
+#     return model
 
 #model = get_model()
 
