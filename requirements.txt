@@ -4,6 +4,3 @@ chardet
 stqdm
 detect_delimiter
 streamlit_echarts
-sentence_transformers 
-BytesIO
-urlparse
