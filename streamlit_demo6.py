@@ -6,100 +6,78 @@ https://github.com/streamlit/example-app-zero-shot-text-classifier
 @author: zia
 """
 
-import altair as alt
 import pandas as pd
+import plotly
+import plotly.graph_objects as go
+import plotly_express as px
 import streamlit as st
-#from vega_datasets import data
 
-st.set_page_config(
-    page_title="Time series ",  layout="centered"
+
+gitcsv = 'C:/Users/zia/Downloads/Testset_Vincent_E.csv'
+# types      dates      count
+# Diesel         2016-01-31      1
+df = pd.read_csv(gitcsv, encoding = "utf-8", sep="\t") #, usecols=['category','url','dates'])
+
+
+print(df[:5])
+df['dates'] = pd.to_datetime(df['dates'])
+
+freq='M' # or D or Y
+
+
+#df = df.groupby(['category', pd.Grouper(key='dates', freq=freq)])['category'].agg(['count']).reset_index()
+
+df = df.groupby(['Sentiment', pd.Grouper(key='dates', freq=freq)])['Sentiment'].agg(['count']).reset_index()
+df = df.sort_values(by=['dates', 'count']).reset_index(drop=True)
+
+# group the dataframe
+group = df.groupby('Sentiment')
+
+# create a blank canvas
+fig = go.Figure()
+
+# each group iteration returns a tuple
+# (group name, dataframe)
+for group_name, df in group:
+    fig.add_trace(
+        go.Scatter(
+              x=df['dates']
+            , y=df['count']
+            , fill='tozeroy'
+            , name=group_name
+        ))
+
+    # generate a regression line with px
+    help_fig = px.scatter(df, x=df['dates'], y=df['count']
+                          , trendline="lowess")
+    # extract points as plain x and y
+    x_trend = help_fig["data"][1]['x']
+    y_trend = help_fig["data"][1]['y']
+
+    # add the x,y data as a scatter graph object
+    fig.add_trace(
+        go.Scatter(x=x_trend, y=y_trend
+                   , name=str('trend ' + group_name)
+                   , line = dict(width=4, dash='dash')))
+
+    transparent = 'rgba(0,0,0,0)'
+
+    fig.update_layout(
+        hovermode='x',
+        showlegend=True
+        # , title_text=str('Court Data for ' + str(year))
+        , paper_bgcolor=transparent
+        , plot_bgcolor=transparent
+        , title=#'Monthly Time Series of News Articles from automobilwoche for innovation-related keywords with Regression'
+        'Monthly Time Series of News Articles from automobil-industrie-Vogel for innovation-related keywords with Regression'
+    )
+
+
+#fig.show()
+st.plotly_chart(
+    fig, 
+    theme="streamlit",  # ✨ Optional, this is already set by default!
 )
-
-
-@st.experimental_memo
-#symbol,date,price
-#MSFT,Jan 1 2000,39.81
-#url	dates	Title	Sentiment	category
-def get_data():
-    #source = data.stocks()
-    #source = pd.read_csv("c:/Download/stocks.csv", delimiter=',')
-    source = pd.read_csv("Testset_Vincent_E.csv", delimiter='\t')
-    source = source[source.dates.gt("2004-01-01")]
-    return source
-
-
-@st.experimental_memo(ttl=60 * 60 * 24)
-def get_chart(data):
-    hover = alt.selection_single(
-        fields=["dates"],
-        nearest=True,
-        on="mouseover",
-        empty="none",
-    )
-
-    lines = (
-        alt.Chart(data, height=500, title="Evolution of News Articles")
-        .mark_line()
-        .encode(
-            x=alt.X("dates", title="Date"),
-            y=alt.Y("number", title="Number of Articles"),
-            color="symbol",
-        )
-    )
-
-    # Draw points on the line, and highlight based on selection
-    points = lines.transform_filter(hover).mark_circle(size=65)
-
-    # Draw a rule at the location of the selection
-    tooltips = (
-        alt.Chart(data)
-        .mark_rule()
-        .encode(
-            x="yearmonthdate(date)",
-            y="price",
-            opacity=alt.condition(hover, alt.value(0.3), alt.value(0)),
-            tooltip=[
-                alt.Tooltip("dates", title="Date"),
-                alt.Tooltip("price", title="Number"),
-            ],
-        )
-        .add_selection(hover)
-    )
-
-    return (lines + points + tooltips).interactive()
-
-
-st.title("⬇ Time series annotations")
-
-st.write("Give more context to your time series using annotations!")
-
-
-# Original time series chart. Omitted `get_chart` for clarity
-source = get_data()
-chart = get_chart(source)
-
-# Input annotations
-ANNOTATIONS = [
-    ("Mar 01, 2008", "Pretty good day for GOOG"),
-    ("Dec 01, 2007", "Something's going wrong for GOOG & AAPL"),
-    ("Nov 01, 2008", "Market starts again thanks to..."),
-    ("Dec 01, 2009", "Small crash for GOOG after..."),
-]
-
-# Create a chart with annotations
-annotations_df = pd.DataFrame(ANNOTATIONS, columns=["date", "event"])
-annotations_df.date = pd.to_datetime(annotations_df.date)
-annotations_df["y"] = 0
-annotation_layer = (
-    alt.Chart(annotations_df)
-    .encode(
-        x="date:T",
-        y=alt.Y("y:Q"),
-        tooltip=["event"],
-    )
-    .interactive()
-)
-
-# Display both charts together
-st.altair_chart((chart + annotation_layer).interactive(), use_container_width=True)
-
+# html file
+#plotly.offline.plot(fig, filename='trendlineVogel2020-toNOW_final.html')
+#plotly.offline.plot(fig, filename='trendlineVogel_2020-Sentiment-August_October.html')
