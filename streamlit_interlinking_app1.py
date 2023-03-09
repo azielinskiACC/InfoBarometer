@@ -22,7 +22,7 @@ finish = False
 
 
 st.write(
-    "Made in [![this is an image link](https://i.imgur.com/iIOA6kU.png)](https://www.streamlit.io/) by [@LeeFootSEO](https://twitter.com/LeeFootSEO) / [![this is an image link](https://i.imgur.com/bjNRJra.png)](https://www.buymeacoffee.com/leefootseo) [Support My Work! Buy me a coffee!](https://www.buymeacoffee.com/leefootseo)")
+    "Made in ..")
 
 st.title("BERT Semantic Interlinking Tool")
 st.subheader("Upload a crawl file to find semantically relevant news pages. ")
@@ -36,15 +36,7 @@ model_radio_button = st.sidebar.radio(
     help="""the model to use for the clustering.
     - multi-qa-mpnet-base-dot-v1 - Best Semantic Clustering (🐌)
     - paraphrase-multilingual-MiniLM-L12-v2 - Best Multi-Lingual Clustering (💬)
-    - paraphrase-MiniLM-L3-v2 - Best Performance (💨)"""
-)
-
-@st.cache(allow_output_mutation=True)
-# def get_model():
-#     model = SentenceTransformer(model_radio_button)
-#     return model
-
-#model = get_model()
+    - paraphrase-MiniLM-L3-v2 - Best Performance (💨)""")
 
 accuracy_slide = st.sidebar.slider("Set Cluster Accuracy: 0-100", value=75)
 min_cluster_size = st.sidebar.slider("Set Minimum Cluster Size: 0-100", value=2)
