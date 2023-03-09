@@ -38,19 +38,25 @@ def predict(reviews):
 def result_to_positive_class_probability(result):
         return result["score"] if result["label"] == "POSITIVE" else 1 - result["score"]
 
+def result_to_negative_class_probability(result):
+        return result["score"] if result["label"] == "NEGATIVE" else 1 - result["score"]
+
+def result_to_neutral_class_probability(result):
+        return result["score"] if result["label"] == "NEUTRAL" else 1 - result["score"]
+
 
 classifier = get_classifier()
 #st.title("🗺️ Bias map")
 st.write("""Discover the Sentiment""")
 
 text_input = st.text_input(
-    label="Type in a sentence. Use * as a country placeholder", value="This movie was filmed in *"
+    label="Type in a sentence or news article. "
 )
 
 st.write("---")
 
 if "*" not in text_input:
-    st.error("Your input sentence must contain a `*` which will be used as the country placeholder.")
+    st.error("Your input sentence must contain a German news article.")
     st.stop()
 
 if text_input:
@@ -62,11 +68,13 @@ if text_input:
         reviews.append(text_input)
 
         results = predict(reviews)
-        probas = map(result_to_positive_class_probability, results)
+        probas_pos = map(result_to_positive_class_probability, results)
+        probas_neg = map(result_to_negative_class_probability, results)
+        probas_neu = map(result_to_neutral_class_probability, results)
 
         probas_df = pd.DataFrame(
-            {"Positive class probability": probas}
+            {"Positive class probability": probas_pos}
         )
 
-        st.write("Data (sorted by ascending 'positive'-ness probability):")
+        st.write("Data (sorted by ascending 'positive' probability):")
         st.dataframe(probas_df.sort_values(by="Positive class probability", ascending=True), height=350,)
