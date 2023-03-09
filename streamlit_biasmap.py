@@ -12,6 +12,8 @@ import json
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import random
+import string
 #from tensorflow.keras.utils import get_file
 #from transformers import pipeline
 from transformers import pipeline, AutoModelForTokenClassification, AutoTokenizer
@@ -49,9 +51,19 @@ classifier = get_classifier()
 #st.title("🗺️ Bias map")
 st.write("""Discover the Sentiment""")
 
-text_input = st.text_input(
-    label="Type in a German news article. "
-)
+#text_input = st.text_input(
+#    label="Type in a German news article. "
+#)
+if 'input_keys' not in st.session_state:
+    st.session_state.input_keys= []
+
+if st.button("Add new row"):
+    st.session_state.input_keys.append(random.choice(string.ascii_uppercase)+str(random.randint(0,999999)))
+
+input_values = []
+for input_key in st.session_state.input_keys:
+    input_value = st.text_input("Please input something", key=input_key)
+    input_values.append(input_value)
 
 st.write("---")
 
