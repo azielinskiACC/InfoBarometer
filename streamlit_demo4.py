@@ -11,6 +11,11 @@ import streamlit as st
 import plotly.graph_objects as go
 import plotly_express as px
 
+
+#create a canvas for each item
+interactive =  st.beta_container()
+
+
 st.set_page_config(
     page_title="Time series Infobarometer",  layout="centered"
 )
@@ -31,56 +36,22 @@ df = df.sort_values(by=['dates', 'count']).reset_index(drop=True)
 # group the dataframe
 group = df.groupby('Sentiment')
 
-#create your figure and get the figure object returned
-fig = px.scatter(df, x=df['dates'], y=df['count']
-                          , trendline="lowess")
-#histogram(df, x='desc', hover_data=['desc'], y='stats_diggCount', height=300) 
-#fig = plt.figure() 
-# create a blank canvas
-#fig = go.Figure()
 
-
-
-
-# each group iteration returns a tuple
-# (group name, dataframe)
-for group_name, df in group:
-    fig.add_trace(
-        go.Scatter(
+with interactive:
+    fig = go.Figure
+    for group_name, df in group:
+        fig.add_trace( go.Scatter(
               x=df['dates']
             , y=df['count']
             , fill='tozeroy'
             , name=group_name
         ))
 
-    # generate a regression line with px
-    help_fig = px.scatter(df, x=df['dates'], y=df['count']
-                          , trendline="lowess")
-    # extract points as plain x and y
-    x_trend = help_fig["data"][1]['x']
-    y_trend = help_fig["data"][1]['y']
+#    fig = px.scatter(df, x=df['dates'], y=df['count'], trendline="lowess")
+    fig.show()
+        
 
-    # add the x,y data as a scatter graph object
-    fig.add_trace(
-        go.Scatter(x=x_trend, y=y_trend
-                   , name=str('trend ' + group_name)
-                   , line = dict(width=4, dash='dash')))
-
-    transparent = 'rgba(0,0,0,0)'
-
-    fig.update_layout(
-        hovermode='x',
-        showlegend=True
-        # , title_text=str('Court Data for ' + str(year))
-        , paper_bgcolor=transparent
-        , plot_bgcolor=transparent
-        , title=#'Monthly Time Series of News Articles from automobilwoche for innovation-related keywords with Regression'
-        'Monthly Time Series of News Articles from automobil-industrie-Vogel for innovation-related keywords with Regression'
-    )
-
-
-
-st.pyplot(fig)
+#st.pyplot(fig)
 
 
 
