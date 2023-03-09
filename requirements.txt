@@ -2,3 +2,4 @@ plotly
 altair
 streamlit
 pandas
+ploty.express
