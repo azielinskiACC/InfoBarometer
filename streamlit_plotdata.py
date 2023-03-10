@@ -12,8 +12,9 @@ import plotly_express as px
 import streamlit as st
 
 
-gitcsv = 'C:/Users/zia/Downloads/Testset_Vincent_E.csv'
+gitcsv = 'Testset_Vincent_E.csv'
 
+#C:/Users/zia/Downloads/
 df = pd.read_csv(gitcsv, encoding = "utf-8", sep="\t") 
 
 
@@ -43,7 +44,7 @@ for group_name, df in group:
     # generate a regression line with px
     plot = px.scatter(df, x=df['dates'], y=df['count']
                           , trendline="lowess")
-    st.plotly_chart(plot, use_container_width=True)    
+   # st.plotly_chart(plot, use_container_width=True)    
 
     # extract points as plain x and y
 # =============================================================================
