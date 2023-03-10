@@ -33,9 +33,6 @@ freq='M'
 df = df.groupby(['Sentiment', pd.Grouper(key='dates', freq=freq)])['Sentiment'].agg(['count']).reset_index()
 df = df.sort_values(by=['dates', 'count']).reset_index(drop=True)
 
-# group the dataframe
-df = df.groupby(['Sentiment', pd.Grouper(key='dates', freq=freq)])['Sentiment'].agg(['count']).reset_index()
-df = df.sort_values(by=['dates', 'count']).reset_index(drop=True)
 
 # group the dataframe
 group = df.groupby('Sentiment')
