@@ -17,7 +17,7 @@ col1, mid, col2 = st.beta_columns([1,1,20])
 with col1:
     st.image('webscraping.png', width=150)
 with col2:
-    st.title()
+    st.title('')
     
     
 gitcsv = 'Testset_Vincent_E.csv'
