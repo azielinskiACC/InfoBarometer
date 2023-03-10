@@ -12,6 +12,14 @@ import plotly_express as px
 import streamlit as st
 
 
+st.write("Data Statistics")
+col1, mid, col2 = st.beta_columns([1,1,20])
+with col1:
+    st.image('webscraping.png', width=60)
+with col2:
+    st.write('German Online News from Automotive Sector')
+    
+    
 gitcsv = 'Testset_Vincent_E.csv'
 
 #C:/Users/zia/Downloads/
