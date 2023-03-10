@@ -12,12 +12,12 @@ import plotly_express as px
 import streamlit as st
 
 
-st.write("Data Statistics")
+st.header("Data Statistics")
 col1, mid, col2 = st.beta_columns([1,1,20])
 with col1:
-    st.image('webscraping.png', width=60)
+    st.image('webscraping.png', width=200)
 with col2:
-    st.write('German Online News from Automotive Sector')
+    st.title('German Online News from Automotive Sector')
     
     
 gitcsv = 'Testset_Vincent_E.csv'
@@ -52,7 +52,7 @@ for group_name, df in group:
     # generate a regression line with px
     plot = px.scatter(df, x=df['dates'], y=df['count']
                           , trendline="lowess")
-   # st.plotly_chart(plot, use_container_width=True)    
+    st.plotly_chart(plot, use_container_width=True)    
 
     # extract points as plain x and y
 # =============================================================================
